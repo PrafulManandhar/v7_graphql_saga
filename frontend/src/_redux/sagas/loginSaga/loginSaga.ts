@@ -32,16 +32,17 @@ const loginUser = (data: any) => {
 
 
 function* fetchloginUser(payload: CreateUserRequest ):any {
+  let email = payload.payload.email;
   try {
     const response= yield call(loginUser,payload); // call act as axios ( api hit)
-
+    console.log("response",email)
     yield put(
       //put act as dispatch
       loginSuccess({
-        email: response.data.data.createUser.email,
+        email:`${email}`,
         loading:false,
         success: true,
-        message:""
+        message:"Your successfully loged in!"
       })
     
     );

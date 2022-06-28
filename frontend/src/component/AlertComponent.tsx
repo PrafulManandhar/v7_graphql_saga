@@ -11,7 +11,7 @@ const AlertComponent:FC=()=> {
     useEffect(()=>{
         setTimeout(()=>{
             dispatch(showAlertAction({alertMessage:"", type:""}))
-        },9000)
+        },3000)
     },[])
     
     return (

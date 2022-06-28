@@ -23,16 +23,25 @@ export default (state = initialState, action: LoginAction) => {
         loading: false,
         success: true,
         email: action.payload.email,
-        message:`${action.payload.email} is registed successfully. Please login!`
+        message:action.payload.message
       };
     case loginTypes.LOGIN_FAILURE:
       return {
         ...state,
         loading: false,
         success: false,
-        message: 'Failed to Register'
+        message: 'Your email/password is incorrect'
         
       };
+
+    case loginTypes.LOGOUT: 
+    return {
+      ...state,
+      loading: false,
+      success: false,
+      message: '',
+      email:''
+    };
       
     default:
       return {

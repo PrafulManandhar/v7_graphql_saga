@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   useForm,
   SubmitHandler,
@@ -10,6 +10,20 @@ import {
   useWatch,
 } from "react-hook-form";
 import { Button, Form, Input, Col, Row } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../_redux/reducers/rootReducer";
+import {
+  createUserRequest,
+  createUserSuccess,
+  showAlertAction,
+} from "../_redux/actions/authActions/authAction";
+import { useNavigate } from "react-router-dom";
+import {
+  loginRequest,
+  loginSuccess,
+  logout,
+} from "../_redux/actions/loginActions/loginAction";
+import { boolean } from "yup";
 
 type Inputs = {
   email: string;
@@ -30,6 +44,9 @@ type UseControllerProps<TFieldValues extends FieldValues = FieldValues> = {
 };
 
 const SignInForm: FC = () => {
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -42,7 +59,27 @@ const SignInForm: FC = () => {
       password: "",
     },
   });
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log("value", data);
+  const { loading, success, email, message } = useSelector(
+    (state: RootState) => state.login
+  );
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    let requestData = {
+      email: data.email,
+      password: data.password,
+    };
+    const response = dispatch(loginRequest(requestData));
+    console.log("value on onSubmit", response);
+  };
+
+  useEffect(() => {
+    if (success && email) {
+      navigate("/logindash");
+    } else if(message){
+      setErrorMessage(message);
+    }
+  }, [success, email, message]);
 
   const Controller = ({
     control,
@@ -50,8 +87,6 @@ const SignInForm: FC = () => {
     name,
     rules,
     render,
-    defaultValue,
-    onFocus,
   }: any) => {
     const value = useWatch({
       control,
@@ -75,7 +110,7 @@ const SignInForm: FC = () => {
       onBlur: props.onBlur,
       name: props.name,
       errors: errors,
-      isValid
+      isValid,
     });
   };
 
@@ -96,9 +131,11 @@ const SignInForm: FC = () => {
             onChange={(e) => {
               setValue(e.target.value);
               props.onChange && props.onChange(e);
+              setErrorMessage('')
             }}
             value={value}
             placeholder={props.placeholder}
+        
           />
         ) : (
           <Input
@@ -106,11 +143,13 @@ const SignInForm: FC = () => {
             onChange={(e) => {
               setValue(e.target.value);
               props.onChange && props.onChange(e);
+              setErrorMessage('')
+
             }}
             type={props.type}
             value={value}
             placeholder={props.placeholder}
-
+            
           />
         )}
       </>
@@ -149,7 +188,7 @@ const SignInForm: FC = () => {
                         {...props}
                         placeholder="Enter your email address"
                         type="email"
-                        isValid={(e:boolean)=>e}
+                        isValid={(e: boolean) => e}
                       />
                       <span className="error-message">
                         {errors.email &&
@@ -186,8 +225,7 @@ const SignInForm: FC = () => {
                         {...props}
                         type="password"
                         placeholder="Enter your password."
-                        isValid={(e:boolean)=>e}
-
+                        isValid={(e: boolean) => e}
                       />
                       <span className="error-message">
                         {" "}
@@ -201,6 +239,13 @@ const SignInForm: FC = () => {
               />
             </Col>
           </Row>
+          {errorMessage && (
+            <Row justify="center" className="mb-2">
+              <Col>
+                <span className="error-message">{errorMessage}</span>{" "}
+              </Col>
+            </Row>
+          )}
 
           <Row justify="start" className="mb-2">
             <Col offset={4}>
@@ -212,6 +257,12 @@ const SignInForm: FC = () => {
           </Row>
         </form>
       </div>
+      {loading && (
+        <>
+          <div className="overlay"></div>
+          <div className="spinner-border spinner-placement" />
+        </>
+      )}
     </div>
   );
 };

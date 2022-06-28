@@ -51,7 +51,6 @@ const SignupForm: FC = () => {
 
     navigate("/");
   }
-    console.log('success nessage',message)
   },[success,email,message])
 
   const {

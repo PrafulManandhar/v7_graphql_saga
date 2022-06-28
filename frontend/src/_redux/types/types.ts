@@ -67,6 +67,10 @@ export type LoginFailure = {
   payload: UserRequestedfalied
 };
 
+export type Logout = {
+  type: typeof loginTypes.LOGOUT
+}
+
 export type ShowAlertMessage = {
   type: typeof authTypes.SHOW_ALERT_MESSAGE;
   payload: alertMessage
@@ -81,4 +85,5 @@ export type ShowAlertMessage = {
   export type LoginAction = 
   | LoginRequest
   | LoginSuccess
-  | LoginFailure;
+  | LoginFailure
+  | Logout

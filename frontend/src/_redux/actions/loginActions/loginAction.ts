@@ -26,3 +26,10 @@ export const loginFailure = (
   payload
 });
 
+export const logout = (
+ 
+): LoginAction => ({
+  type: loginTypes.LOGOUT,
+});
+
+

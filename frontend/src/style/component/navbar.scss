@@ -24,20 +24,28 @@
         }
     }
 
-    .signin-signup {
-        padding: 20px 0;
+    .signin-signup,.logout-wrapper {
+        // padding: 20px 0;
+        display:flex;
+        flex-direction: row;
 
         .nav-item {
             padding: 20px 10px;
             text-decoration: none;
-            font-weight: bold;
+            // font-weight: bold;
             color: black;
             text-transform: uppercase;
+            cursor: pointer;
     
             &:hover {
               background-color: $black;
               color: $white;
             }
+        }
+
+        .login-name {
+            padding: 20px 10px;
+            text-transform: capitalize;
         }
     }
    
