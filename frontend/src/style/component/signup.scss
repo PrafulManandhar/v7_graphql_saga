@@ -1,0 +1,42 @@
+@import '../variable';
+
+.signup-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 6rem 0;
+    padding: 2rem 0;
+    box-shadow: 25px 31px 79px 17px rgba(0,0,0,0.26);
+    -webkit-box-shadow: 25px 31px 79px 17px rgba(0,0,0,0.26);
+    -moz-box-shadow: 25px 31px 79px 17px rgba(0,0,0,0.26);
+    h2 {
+        text-transform: capitalize;
+        color: $primary-color;
+    }
+
+}
+
+.error-message {
+    font-size: 10px;
+    color: $primary-color;
+    font-style: italic;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left:0;
+    bottom:0;
+    right:0;
+    background-color: rgba(0, 0, 0, 0.925);
+    opacity: 0.3; 
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}
+
+.spinner-placement {
+    position: absolute;
+    top: 50%;
+    left:50%
+}

@@ -1,0 +1,44 @@
+@import '../variable';
+
+.nav-wrapper {
+    width: 100%;
+    box-shadow: 0px 16px 40px #B7B7B73D;
+    position: sticky;
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .menu-wrapper {
+        padding:20px 10px;
+
+        .menu-item {
+            text-decoration: none;
+            color: $black;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .signin-signup {
+        padding: 20px 0;
+
+        .nav-item {
+            padding: 20px 10px;
+            text-decoration: none;
+            font-weight: bold;
+            color: black;
+            text-transform: uppercase;
+    
+            &:hover {
+              background-color: $black;
+              color: $white;
+            }
+        }
+    }
+   
+}
